@@ -19,22 +19,20 @@ app.post('/repos', function(req, res) {
     console.log('pinging gitHub API for repos for ')
     if (err) {
       console.log('error in post request');
-      res.sendStatus(400);
     } else {
       result.map((repo) => {
         db.save(repo, (err, result) => {
 
           if (err) {
             console.log(err);
-            res.sendStatus(400);
           } else {
             console.log(result);
-            res.sendStatus(200);
           }
         })
       })
 
     }
+    res.send();
   });
 
 
@@ -46,6 +44,17 @@ app.post('/repos', function(req, res) {
 app.get('/repos', function (req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
+  db.find((err, result) => {
+    if (err) {
+      console.log('error getting repos from db', err );
+      res.send(err);
+    } else {
+      console.log('success at getting repos from db');
+      result.length = 25;
+      res.send(result);
+    }
+  })
+
 });
 
 let port = 1128;

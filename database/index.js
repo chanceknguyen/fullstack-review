@@ -33,4 +33,15 @@ let save = (data, callback) => {
   })
 }
 
+let find =  (callback) => {
+  Repo.find(function(err, result) {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, result);
+    }
+  }).sort('-stargazersCount')
+}
+
 module.exports.save = save;
+module.exports.find = find;
