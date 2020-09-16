@@ -50,8 +50,12 @@ app.get('/repos', function (req, res) {
       res.send(err);
     } else {
       console.log('success at getting repos from db');
+      if (result.length < 25) {
+        res.send(result);
+      } else {
       result.length = 25;
       res.send(result);
+      }
     }
   })
 
